@@ -2,17 +2,14 @@
   command = "npm run build"
   publish = "dist"
 
-# Proxy API + uploaded images to the Render backend.
-# IMPORTANT: replace cityfix-backend.onrender.com with YOUR Render service URL.
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
+# Route API calls to the serverless Express function (same origin, no CORS).
 [[redirects]]
   from = "/api/*"
-  to = "https://cityfix-backend.onrender.com/api/:splat"
-  status = 200
-  force = true
-
-[[redirects]]
-  from = "/uploads/*"
-  to = "https://cityfix-backend.onrender.com/uploads/:splat"
+  to = "/.netlify/functions/api/:splat"
   status = 200
   force = true
 
